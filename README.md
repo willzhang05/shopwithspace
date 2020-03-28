@@ -1,5 +1,7 @@
 # ShopWithSpace
 
+Shop for essentials while maintaining social distancing!
+
 ## Environment
 
 ```bash
