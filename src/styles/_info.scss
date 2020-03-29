@@ -12,27 +12,273 @@
   justify-content: center;
   align-items: center;
 
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 2em;
+    transition: all 0.1s ease;
+    color: rgba($black, 0.3);
+
+    &:hover {
+      cursor: pointer;
+      color: rgba($black, 0.7);
+      transform: rotate(180deg);
+    }
+  }
+
   .store-modal {
+    position: relative;
+    display: flex;
     height: 100vh;
     width: 100vw;
     opacity: 1;
     animation-name: expandmodal;
-    animation-duration: 2s;
+    animation-duration: 1s;
     max-height: 500px;
     max-width: 1000px;
     border-radius: 8px;
     box-sizing: border-box;
-    padding: 32px;
+
     background: white;
     box-shadow: 0 0 16px rgba(white, 0.3);
+
     h2 {
       font-size: 1.5em;
+      margin-bottom: 32px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+
+      h4 {
+        font-weight: 300;
+      }
+      p {
+        color: rgba($secondary, 0.7);
+      }
+    }
+
+    .modal-right {
+      display: flex;
+      flex: 1;
+      background: rgba($secondary, 0.1);
+      opacity: 1;
+      animation-name: showmodal;
+      animation-duration: 1s;
+      padding: 32px;
+      box-sizing: border-box;
+      overflow-y: auto;
+
+      .safety-rating {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        .safety-breakdown {
+          h3 {
+            margin: 16px 0;
+          }
+
+          .text {
+            margin-bottom: 16px;
+            font-size: 0.7em;
+            color: rgba($secondary, 0.9);
+          }
+
+          .row {
+          }
+        }
+        .safety-score {
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 120px;
+          width: 120px;
+          box-sizing: border-box;
+          border-radius: 100%;
+          align-items: center;
+          text-align: center;
+          color: white;
+          margin-bottom: 32px;
+
+          @mixin safety-score-circle($safe) {
+            background: $safe;
+            box-shadow: 0 0 1px rgba($safe, 0.1);
+          }
+
+          &.r5 {
+            @include safety-score-circle($primary);
+          }
+          &.r4 {
+            @include safety-score-circle($primary);
+          }
+          &.r3 {
+            @include safety-score-circle($yellow);
+          }
+          &.r2 {
+            @include safety-score-circle($orange);
+          }
+          &.r1 {
+            @include safety-score-circle($red);
+          }
+
+          .safety-number {
+            font-weight: bolder;
+            font-size: 3em;
+          }
+          .safety-text {
+            text-transform: uppercase;
+            font-size: 0.8em;
+          }
+        }
+      }
     }
 
     .modal-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       opacity: 1;
       animation-name: showmodal;
-      animation-duration: 2s;
+      animation-duration: 1s;
+      padding: 32px;
+
+      .container {
+        margin-bottom: 32px;
+        h4 {
+          color: rgba($black, 0.9);
+          margin-bottom: 8px;
+        }
+      }
+
+      .pop-times-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .popular-rating {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: left;
+          margin-left: 32px;
+          .popularity {
+            font-size: 1.5em;
+            margin-bottom: 16px;
+          }
+          .day {
+          }
+          .time {
+            color: rgba($secondary, 0.7);
+          }
+        }
+      }
+      .modal-popular-times {
+        display: flex;
+        overflow-x: scroll;
+        max-width: 300px;
+        padding: 8px;
+        border: 1px solid rgba($secondary, 0.1);
+        border-radius: 8px;
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 0 8px rgba($secondary, 0.1);
+        }
+
+        .pop-time {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          border-right: 1px solid rgba($secondary, 0.1);
+          padding-right: 1px;
+          margin-right: 4px;
+
+          .day {
+            font-size: 0.8em;
+          }
+          .bars {
+            display: flex;
+            height: 70px;
+            align-items: flex-end;
+            margin: 8px 0;
+
+            background-color: red($color: #000000);
+            .bar {
+              position: relative;
+              width: 8px;
+              border-radius: 8px;
+              margin-right: 4px;
+              opacity: 0.7;
+
+              .tooltip {
+                display: none;
+                position: absolute;
+                padding: 8px;
+                color: white;
+                top: 0%;
+                left: 50%;
+                transform: translate(-50%, -100%);
+              }
+
+              &:hover {
+                .tooltip {
+                  display: block;
+                  z-index: 1000;
+                }
+              }
+
+              @mixin safety-bar($safe) {
+                background: $safe;
+                box-shadow: 0 0 1px rgba($safe, 0.1);
+
+                &:hover {
+                  box-shadow: 0 0 4px rgba($safe, 0.7);
+
+                  .tooltip {
+                    background: $safe;
+                  }
+                }
+              }
+
+              &.r5 {
+                @include safety-bar($green);
+              }
+              &.r4 {
+                @include safety-bar($primary);
+              }
+              &.r3 {
+                @include safety-bar($yellow);
+              }
+              &.r2 {
+                @include safety-bar($orange);
+              }
+              &.r1 {
+                @include safety-bar($red);
+              }
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+          .time {
+            display: flex;
+            width: 100%;
+
+            span {
+              width: 50%;
+              font-size: 0.8em;
+              color: rgba($secondary, 0.7);
+            }
+          }
+        }
+      }
     }
   }
   @keyframes expandmodal {
@@ -40,22 +286,13 @@
       opacity: 0;
       height: 0;
       width: 0;
-      .modal-content {
-        opacity: 0;
-      }
     }
     50% {
       height: unquote('min(100vh, 500px)');
       width: unquote('min(100vw, 1000px)');
       opacity: 1;
-      .modal-content {
-        opacity: 0;
-      }
     }
     100% {
-      .modal-content {
-        opacity: 1;
-      }
     }
   }
   @keyframes showmodal {

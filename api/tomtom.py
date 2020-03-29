@@ -44,7 +44,7 @@ def get_speeds(latitude, longitude):
     data = r.json()
     print(data)
     if "error" in data:
-        return (3., 8.)  # average ratio to 2.5
+        return (4., 8.)  # default ratio to 3
     return (float(data["flowSegmentData"]["currentSpeed"]), float(data["flowSegmentData"]["freeFlowSpeed"]))
 
 

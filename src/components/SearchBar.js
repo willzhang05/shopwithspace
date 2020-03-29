@@ -3,7 +3,18 @@ import { connect } from 'react-redux';
 
 class SearchBar extends React.Component {
   render() {
-    return <div>search bar</div>;
+    return (
+      <div className='search-bar-container'>
+        <input
+          type='text'
+          placeholder='Search for items in nearby stores..'
+          className='search-bar'
+        />
+        <button id='search-bar-submit'>
+          <i className='fas fa-search'></i>
+        </button>
+      </div>
+    );
   }
 }
 

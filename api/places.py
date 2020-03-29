@@ -7,6 +7,9 @@ GMAPS_API_KEY = "AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q"
 GMAPS_CLIENT = googlemaps.Client(key=GMAPS_API_KEY)
 
 
+def get_safety(latitude, longitude):
+
+
 def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarket']):
     try:
         places = GMAPS_CLIENT.places_nearby(

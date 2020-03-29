@@ -1,0 +1,37 @@
+.search-bar-container {
+  display: flex;
+  // height: ;
+  min-height: 40px;
+  padding: 0 16px 0 16px;
+  margin: 16px 0;
+  outline: none;
+  border: 1px solid rgba(64, 78, 77, 0.3);
+  border-radius: 8px;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 4px 4px 8px rgba($secondary, 0.1);
+  }
+
+  .search-bar {
+    background: transparent;
+    width: 100%;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  button#search-bar-submit {
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  i {
+    font-size: 1em;
+  }
+}

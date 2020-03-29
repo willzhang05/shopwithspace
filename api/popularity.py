@@ -11,8 +11,7 @@ GMAPS_API_KEY = sys.argv[1]
 
 GMAPS_CLIENT = googlemaps.Client(key=GMAPS_API_KEY)
 
-location = (38.85200277,-77.400724)
-
+location = (38.85200277, -77.400724)
 
 
 def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarket']):
@@ -71,6 +70,8 @@ def get_place_popularity_info(place_id):
         info['time_spent'] = data['time_spent'][1]
         if "current_popularity" in data:
             info['current_popularity'] = data['current_popularity']
+        else:
+            info['current_popularity'] = -1
         info['populartimes'] = data['populartimes']
         return info
     except populartimes.crawler.PopulartimesException:

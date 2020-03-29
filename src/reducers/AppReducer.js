@@ -6,7 +6,9 @@ const initialState = {
   // for viewing
   current: null,
   marker: null,
-  result: null
+  result: null,
+  currentPopularTime: null,
+  currentPopularDay: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -55,6 +57,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         current: action.payload.key
+      };
+    }
+    case 'UPDATE_POPULAR_TIME': {
+      return {
+        ...state,
+        currentPopularTime: action.payload.hour,
+        currentPopularDay: action.payload.day
       };
     }
     default:

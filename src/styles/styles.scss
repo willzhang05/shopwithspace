@@ -3,6 +3,11 @@
 @import 'markers';
 @import 'results';
 @import 'info';
+@import 'search';
+
+* {
+  font-family: 'Sen', sans-serif;
+}
 
 body,
 html {
@@ -10,7 +15,6 @@ html {
   padding: 0;
   min-width: 100vw;
   min-height: 100vh;
-  font-family: 'Sen', sans-serif;
 }
 
 h1,

@@ -10,11 +10,27 @@ export function* fetchStores(action) {
     yield put({ type: 'SEARCH_STORES_PENDING', payload: {} });
 
     // const stores = yield call(storesApi, action.payload);
-    const stores = storesSample;
+    const stores = storesSample.data.stores.map((store, index) => {
+      if (
+        'current_popularity' in store.popular &&
+        store.popular.current_popularity < 0
+      ) {
+        const currentTime = Date.now();
+        const currentDay = (currentTime.getDay() + 6) % 7;
+        const currentMins = currentTime.getMinutes();
+        const currentHour = currentTime.getHours();
 
+        const byHour = store.popular.populartimes[6].data;
+        store.popular.current_popularity =
+          ((60.0 - currentMins) / 60.0) * byHour[currentHour % 24] +
+          (currentMins / 60.0) *
+            store.popular.populartimes[(currentDay + 1) % 7].data[0];
+      }
+      return store;
+    });
     yield put({
       type: 'SEARCH_STORES_SUCCESS',
-      payload: { stores: stores.data.stores }
+      payload: { stores: stores }
     });
   } catch (e) {
     yield put({ type: 'SEARCH_SET_ERROR', payload: { error: e.message } });
@@ -24,25 +40,25 @@ export function* fetchStores(action) {
 const storesSample = {
   data: {
     stores: [
-      {
-        current_speed: 30.0,
-        details: {
-          formatted_address:
-            '8792 Sacramento Dr # A, Alexandria, VA 22309, USA',
-          formatted_phone_number: '(703) 799-2640',
-          photo_ref:
-            'CmRaAAAA9LN7OEMWDW57awrwmzpVLS4r_nigNr3JczuMuQ68spJkej0HQPxjZWF11H4cEHCpYYnggiaTdllSAF352j5a-dSNYJBgAWPCPV9wh_OtI_VVRcLD5u7IO3T9AcC3k9e3EhA1goCrESjSGqdJ51-XSwIAGhTCyloQoFsEHdKrZHf8QIWi7eyp-g'
-        },
-        free_flow_speed: 30.0,
-        id: 'ce2bbb17a579d6abfa0c9f3be1f92b874a157d94',
-        location: { lat: 38.7209265, lng: -77.1264499 },
-        name: 'Super Mini Mart',
-        photo:
-          'https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&maxheight500&photoreference=CmRaAAAA9LN7OEMWDW57awrwmzpVLS4r_nigNr3JczuMuQ68spJkej0HQPxjZWF11H4cEHCpYYnggiaTdllSAF352j5a-dSNYJBgAWPCPV9wh_OtI_VVRcLD5u7IO3T9AcC3k9e3EhA1goCrESjSGqdJ51-XSwIAGhTCyloQoFsEHdKrZHf8QIWi7eyp-g&key=AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q',
-        place_id: 'ChIJTSne-Eest4kRRV-NRv15w_Y',
-        popular: {},
-        safety: 1.0
-      },
+      // {
+      //   current_speed: 30.0,
+      //   details: {
+      //     formatted_address:
+      //       '8792 Sacramento Dr # A, Alexandria, VA 22309, USA',
+      //     formatted_phone_number: '(703) 799-2640',
+      //     photo_ref:
+      //       'CmRaAAAA9LN7OEMWDW57awrwmzpVLS4r_nigNr3JczuMuQ68spJkej0HQPxjZWF11H4cEHCpYYnggiaTdllSAF352j5a-dSNYJBgAWPCPV9wh_OtI_VVRcLD5u7IO3T9AcC3k9e3EhA1goCrESjSGqdJ51-XSwIAGhTCyloQoFsEHdKrZHf8QIWi7eyp-g'
+      //   },
+      //   free_flow_speed: 30.0,
+      //   id: 'ce2bbb17a579d6abfa0c9f3be1f92b874a157d94',
+      //   location: { lat: 38.7209265, lng: -77.1264499 },
+      //   name: 'Super Mini Mart',
+      //   photo:
+      //     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&maxheight500&photoreference=CmRaAAAA9LN7OEMWDW57awrwmzpVLS4r_nigNr3JczuMuQ68spJkej0HQPxjZWF11H4cEHCpYYnggiaTdllSAF352j5a-dSNYJBgAWPCPV9wh_OtI_VVRcLD5u7IO3T9AcC3k9e3EhA1goCrESjSGqdJ51-XSwIAGhTCyloQoFsEHdKrZHf8QIWi7eyp-g&key=AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q',
+      //   place_id: 'ChIJTSne-Eest4kRRV-NRv15w_Y',
+      //   popular: {},
+      //   safety: 1.0
+      // },
       {
         current_speed: 26.0,
         details: {
@@ -61,6 +77,7 @@ const storesSample = {
           'https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&maxheight500&photoreference=CmRaAAAADBmo1PSaRpIgW1SDA5ukWtI5DF1lhgDAI45BuhQ9ucBq9TS3ilFuYLzfTKxVTYk9gWpGXsAiYWuNCTjjeH6P7YXP0-qnz2glUxlG81l5PEGF7ja8Cwld4XKWZONmbAxxEhAG7HWN8XPj-hunllFrtzRDGhROOaDgR6qBw_0WbnhGiZsOgsQotA&key=AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q',
         place_id: 'ChIJizz_1xKtt4kRDlHkZc0O_vs',
         popular: {
+          current_popularity: 0.8,
           populartimes: [
             {
               data: [
@@ -270,25 +287,25 @@ const storesSample = {
           time_wait: 15
         },
         safety: 4.25
-      },
-      {
-        current_speed: 37.0,
-        details: {
-          formatted_address: '8736 Richmond Hwy, Alexandria, VA 22309, USA',
-          formatted_phone_number: '(703) 780-1241',
-          photo_ref:
-            'CmRaAAAAryFVwjgdI6baSkTfdQm_tYaZfegbJxIHgNs2B1TcFR6mkn0dtA_F02okv33BMsbxfdou9TadUVw2Dammvh9VP-b7XyFJ6AZaquQWVAsMazp37Wl2ttKvddB0ueBqSeWqEhB-o6IRzpjZJ8mGVou0l-6bGhRH8nHP1W3Dhn3A5mEJm9m3Xi1iiQ'
-        },
-        free_flow_speed: 37.0,
-        id: 'cf1c65d9431423a0aebdbae92ea79b77d7935212',
-        location: { lat: 38.7222976, lng: -77.1247155 },
-        name: 'La Vaquita Supermarket',
-        photo:
-          'https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&maxheight500&photoreference=CmRaAAAAryFVwjgdI6baSkTfdQm_tYaZfegbJxIHgNs2B1TcFR6mkn0dtA_F02okv33BMsbxfdou9TadUVw2Dammvh9VP-b7XyFJ6AZaquQWVAsMazp37Wl2ttKvddB0ueBqSeWqEhB-o6IRzpjZJ8mGVou0l-6bGhRH8nHP1W3Dhn3A5mEJm9m3Xi1iiQ&key=AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q',
-        place_id: 'ChIJ80RDwzest4kRP1eBVLwSSS4',
-        popular: {},
-        safety: 5.0
       }
+      // {
+      //   current_speed: 37.0,
+      //   details: {
+      //     formatted_address: '8736 Richmond Hwy, Alexandria, VA 22309, USA',
+      //     formatted_phone_number: '(703) 780-1241',
+      //     photo_ref:
+      //       'CmRaAAAAryFVwjgdI6baSkTfdQm_tYaZfegbJxIHgNs2B1TcFR6mkn0dtA_F02okv33BMsbxfdou9TadUVw2Dammvh9VP-b7XyFJ6AZaquQWVAsMazp37Wl2ttKvddB0ueBqSeWqEhB-o6IRzpjZJ8mGVou0l-6bGhRH8nHP1W3Dhn3A5mEJm9m3Xi1iiQ'
+      //   },
+      //   free_flow_speed: 37.0,
+      //   id: 'cf1c65d9431423a0aebdbae92ea79b77d7935212',
+      //   location: { lat: 38.7222976, lng: -77.1247155 },
+      //   name: 'La Vaquita Supermarket',
+      //   photo:
+      //     'https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&maxheight500&photoreference=CmRaAAAAryFVwjgdI6baSkTfdQm_tYaZfegbJxIHgNs2B1TcFR6mkn0dtA_F02okv33BMsbxfdou9TadUVw2Dammvh9VP-b7XyFJ6AZaquQWVAsMazp37Wl2ttKvddB0ueBqSeWqEhB-o6IRzpjZJ8mGVou0l-6bGhRH8nHP1W3Dhn3A5mEJm9m3Xi1iiQ&key=AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q',
+      //   place_id: 'ChIJ80RDwzest4kRP1eBVLwSSS4',
+      //   popular: {},
+      //   safety: 5.0
+      // }
     ]
   }
 };
