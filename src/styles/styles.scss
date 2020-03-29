@@ -1,0 +1,17 @@
+@import 'colors';
+@import 'loader';
+@import 'markers';
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: 'Sen', sans-serif;
+}
+
+#map {
+  height: 100vh;
+  width: 100vw;
+}

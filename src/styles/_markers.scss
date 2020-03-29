@@ -1,0 +1,36 @@
+@import 'colors';
+
+.base-marker {
+  position: absolute;
+}
+
+.marker {
+  @extend .base-marker;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background: white;
+}
+
+.current-marker {
+  @extend .base-marker;
+  border: 2px solid white;
+  height: 1em;
+  width: 1em;
+  border-radius: 100%;
+  background: $primary;
+  box-shadow: 0 0 4px 4px rgba($primary, 0.2);
+  animation-name: current-marker-background;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes current-marker-background {
+  0%,
+  100% {
+    box-shadow: 0 0 4px 4px rgba($primary, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 16px 16px rgba($primary, 0.4);
+  }
+}
