@@ -2,18 +2,85 @@
 
 .base-marker {
   position: absolute;
+  font-family: 'Sen', sans-serif;
+}
+
+.marker-container {
+  @extend .base-marker;
 }
 
 .marker {
   @extend .base-marker;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-  background: white;
+  transform: translate(-50%, -100%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .marker-icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .marker-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      height: 40px;
+      width: 40px;
+      border-radius: 100%;
+      background: $orange;
+      color: white;
+
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 1.5em;
+      }
+
+      .marker-info {
+        display: block;
+        overflow: hidden;
+        font-size: 1.2em;
+        width: 0px;
+        opacity: 0;
+        transition: opacity 0.1s ease-out, width 0.3s ease;
+      }
+    }
+    .marker-triangle {
+      width: 0;
+      height: 0;
+      margin-top: -8px;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 16px solid $orange;
+      border-radius: 8px;
+    }
+
+    &:hover {
+      .marker-icon {
+        height: 100px;
+        width: 200px;
+        border-radius: 8px;
+      }
+
+      .marker-info {
+        width: 150px;
+        opacity: 1;
+        transition: opacity 0.5s ease-in, width 0.3s ease;
+      }
+    }
+  }
 }
 
 .current-marker {
   @extend .base-marker;
+  transform: translate(-50%, -50%);
   border: 2px solid white;
   height: 1em;
   width: 1em;

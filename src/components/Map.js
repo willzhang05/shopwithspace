@@ -27,7 +27,8 @@ class Map extends React.Component {
         >
           {this.props.stores.map((obj, index) => (
             <Marker
-              key={index}
+              key={obj.id}
+              index={index}
               lat={obj.location.lat}
               lng={obj.location.lng}
               obj={obj}

@@ -1,17 +1,19 @@
 const initialState = {
   stores: [],
-  loader: false,
   location: {},
   radius: 1500,
-  error: null
+  error: null,
+  // for viewing
+  current: null,
+  marker: null,
+  result: null
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case 'SEARCH_LOCATION_PENDING': {
       return {
-        ...state,
-        loader: true
+        ...state
       };
     }
     case 'SEARCH_LOCATION_SUCCESS': {
@@ -22,14 +24,12 @@ export default function reducer(state = initialState, action) {
     }
     case 'SEARCH_STORES_PENDING': {
       return {
-        ...state,
-        loader: true
+        ...state
       };
     }
     case 'SEARCH_STORES_SUCCESS': {
       return {
         ...state,
-        loader: false,
         stores: action.payload.stores
       };
     }
@@ -37,6 +37,24 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload.error
+      };
+    }
+    case 'HOVER_MARKER': {
+      return {
+        ...state,
+        marker: action.payload.key
+      };
+    }
+    case 'HOVER_RESULT': {
+      return {
+        ...state,
+        result: action.payload.key
+      };
+    }
+    case 'VIEW_DETAILED_INFO': {
+      return {
+        ...state,
+        current: action.payload.key
       };
     }
     default:

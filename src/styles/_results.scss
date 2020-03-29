@@ -1,0 +1,36 @@
+@import 'colors';
+.results-list {
+  .result {
+    margin: 32px 0;
+    border-radius: 8px;
+    border: 1px solid rgba($secondary, 0.3);
+    display: flex;
+
+    .image {
+      width: 70px;
+      background: $secondary;
+    }
+
+    .text {
+      padding: 8px;
+
+      h4 {
+        margin-bottom: 8px;
+      }
+      .coords {
+        font-size: 0.8em;
+        color: rgba($secondary, 0.7);
+      }
+    }
+
+    .safety-rating {
+    }
+
+    transition: box-shadow 0.1s ease;
+    &:hover,
+    &.hover {
+      cursor: pointer;
+      box-shadow: 4px 4px 8px rgba($secondary, 0.1);
+    }
+  }
+}
