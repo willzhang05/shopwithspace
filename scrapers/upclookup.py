@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 def get_upc_url(item_string):
     url = "https://www.upcitemdb.com/query?"
-    values = {"s": item,
+    values = {"s": item_string,
               "type": 2}
     response = requests.post(url, data=values)
     doc = BeautifulSoup(response.text, 'html.parser')

@@ -2,8 +2,8 @@ import requests
 import json
 import math
 
-api_key = "sADNyfxrS8ipzYVjHOllyXsYsggGp7Ag"
-base_url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point="
+TOMTOM_API_KEY = "sADNyfxrS8ipzYVjHOllyXsYsggGp7Ag"
+TOMTOM_BASE_URL = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point="
 # style=absolute, zoom = 10, format = json
 # parameters latitude, longitude is a coordinate close to the road segment calculated using EPSG4326 projection
 
@@ -24,7 +24,8 @@ def get_region_speed(latitude, longitude, radius):
 
 
 def get_flow_segment_data(latitude, longitude):
-    url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+    url = TOMTOM_BASE_URL + latitude + "%2C" + \
+        longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
     r = requests.get(url)
     data = json.loads(r.json())
     del data["-xmlns"]
@@ -36,42 +37,44 @@ def get_flow_segment_data(latitude, longitude):
 
 
 def get_current_speed(latitude, longitude):
-    url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+    url = TOMTOM_BASE_URL + latitude + "%2C" + \
+        longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
     r = requests.get(url)
     data = json.loads(r.json())
     return data["flowSegmentData"]["currentSpeed"]
 
 
 def get_free_flow_speed(latitude, longitude):
-    url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+    url = TOMTOM_BASE_URL + latitude + "%2C" + \
+        longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
     r = requests.get(url)
     data = json.loads(r.json())
     return data["flowSegmentData"]["freeFlowSpeed"]
 
 
 # def getCurrentTravelTime(latitude, longitude):
-#     url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+#     url = TOMTOM_BASE_URL + latitude + "%2C" + longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
 #     r = requests.get(url)
 #     data = json.loads(r.json())
 #     return data["flowSegmentData"]["currentTravelTime"]
 
 
 # def getFreeFlowTravelTime(latitude, longitude):
-#     url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+#     url = TOMTOM_BASE_URL + latitude + "%2C" + longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
 #     r = requests.get(url)
 #     data = json.loads(r.json())
 #     return data["flowSegmentData"]["freeFlowTravelTime"]
 
 
 # def getConfidence(latitude, longitude):
-#     url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+#     url = TOMTOM_BASE_URL + latitude + "%2C" + longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
 #     r = requests.get(url)
 #     data = json.loads(r.json())
 #     return data["flowSegmentData"]["confidence"]
 
 
 # def getRoadClosure(latitude, longitude):
-#     url = base_url + latitude + "%2C" + longitude + "&unit=MPH&key=" + api_key
+#     url = TOMTOM_BASE_URL + latitude + "%2C" + longitude + "&unit=MPH&key=" + TOMTOM_API_KEY
 #     r = requests.get(url)
 #     data = json.loads(r.json())
 #     return data["flowSegmentData"]["roadClosure"]

@@ -21,6 +21,7 @@ class Marker extends React.Component {
           className='marker'
           onClick={this.displayInfo.bind(this)}
           onMouseOver={this.hoverMarker.bind(this)}
+          onMouseOver={this.hoverMarker.bind(this)}
         >
           <div className='marker-icon-container'>
             <div className='marker-icon'>
