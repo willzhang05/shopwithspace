@@ -4,24 +4,29 @@ import { connect } from 'react-redux';
 import { hoverMarker } from './MarkerActions';
 
 class Marker extends React.Component {
-  componentDidMount() {
-    // https://icons.duckduckgo.com/ip3/www.walmart.com.ico
-    //<img src="https://icons.duckduckgo.com/ip3/{this.props.obj}.ico"/>
-  }
   displayInfo() {
     alert('HI');
   }
-  hoverMarker() {
-    this.props.hoverMarker(this.props.index);
+  hoverMarker(key) {
+    this.props.hoverMarker(key);
   }
   render() {
+    let over = 'marker-container';
+    let hover = 'marker';
+
+    if (this.props.result === this.props.obj.id) {
+      hover = 'market hover';
+      over = 'marker-container over';
+    } else if (this.props.marker === this.props.obj.id) {
+      over = 'marker-container over';
+    }
     return (
-      <div className='marker-container'>
+      <div className={over}>
         <div
-          className='marker'
+          className={hover}
           onClick={this.displayInfo.bind(this)}
-          onMouseOver={this.hoverMarker.bind(this)}
-          onMouseOver={this.hoverMarker.bind(this)}
+          onMouseEnter={() => this.hoverMarker(this.props.obj.id)}
+          onMouseLeave={() => this.hoverMarker(null)}
         >
           <div className='marker-icon-container'>
             <div className='marker-icon'>
@@ -29,24 +34,26 @@ class Marker extends React.Component {
 
               <div className='marker-info'>
                 <h4>{this.props.obj.name}</h4>
-                <div>
-                  <span>343</span>
-                </div>
               </div>
             </div>
 
             <div className='marker-triangle'></div>
           </div>
-          {/* {this.props.obj.name} */}
-          {/* <span className='tooltiptext'>This is a test</span> */}
         </div>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    result: state.result,
+    marker: state.marker
+  };
+};
+
 const mapDispatchToProps = {
   hoverMarker
 };
 
-export default connect(null, mapDispatchToProps)(Marker);
+export default connect(mapStateToProps, mapDispatchToProps)(Marker);

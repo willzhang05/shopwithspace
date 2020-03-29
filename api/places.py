@@ -9,7 +9,7 @@ GMAPS_CLIENT = googlemaps.Client(key=GMAPS_API_KEY)
 def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarket']):
     try:
         places = GMAPS_CLIENT.places_nearby(
-            location=(latitude, longitude), radius=radius, type=types, open_now=True)
+            location=(latitude, longitude), radius=radius, type=types)  # open_now=True
         locations = list()
         for p in places['results']:
             data = dict()
@@ -20,8 +20,11 @@ def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarke
             data['location'] = coords
 
             # factors to consider: average relative speed in a region, what else
-            data['safety'] = tt.get_region_speed(
-                coords['lat'], coords['lng'])*5/64
+            current_speed, free_flow_speed = tt.get_speeds(
+                coords['lat'], coords['lng'])
+            data['current_speed'] = current_speed
+            data['free_flow_speed'] = free_flow_speed
+            data['safety'] = current_speed/free_flow_speed*4+1
             locations.append(data)
         return locations
     except googlemaps.exceptions.ApiError:

@@ -7,72 +7,92 @@
 
 .marker-container {
   @extend .base-marker;
-}
 
-.marker {
-  @extend .base-marker;
-  transform: translate(-50%, -100%);
+  &.over {
+    z-index: 1000;
+  }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  .marker {
+    @extend .base-marker;
+    transform: translate(-50%, -100%);
 
-  .marker-icon-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
 
-    .marker-icon {
+    .marker-icon-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      z-index: 1;
 
-      height: 40px;
-      width: 40px;
-      border-radius: 100%;
-      background: $orange;
-      color: white;
-
-      transition: all 0.3s ease;
-
-      i {
-        font-size: 1.5em;
-      }
-
-      .marker-info {
-        display: block;
-        overflow: hidden;
-        font-size: 1.2em;
-        width: 0px;
-        opacity: 0;
-        transition: opacity 0.1s ease-out, width 0.3s ease;
-      }
-    }
-    .marker-triangle {
-      width: 0;
-      height: 0;
-      margin-top: -8px;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 16px solid $orange;
-      border-radius: 8px;
-    }
-
-    &:hover {
       .marker-icon {
-        height: 100px;
-        width: 200px;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        height: 40px;
+        width: 40px;
+        border-radius: 100%;
+        background: $orange;
+        color: white;
+
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 1.5em;
+          transition: all 0.3s ease;
+          z-index: 1;
+        }
+
+        .marker-info {
+          display: block;
+          overflow: hidden;
+          font-size: 1.2em;
+          width: 0px;
+          opacity: 0;
+          transition: opacity 0.1s ease-out, width 0.3s ease;
+          z-index: 1;
+        }
+      }
+      .marker-triangle {
+        width: 0;
+        height: 0;
+        margin-top: -8px;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        border-top: 16px solid $orange;
         border-radius: 8px;
       }
 
-      .marker-info {
-        width: 150px;
-        opacity: 1;
-        transition: opacity 0.5s ease-in, width 0.3s ease;
+      &:hover {
+        .marker-icon {
+          height: 100px;
+          width: 200px;
+          border-radius: 8px;
+          box-shadow: 0 0 16px rgba($orange, 0.4);
+        }
+
+        .marker-info {
+          width: 150px;
+          opacity: 1;
+          transition: opacity 0.3s ease-in, width 0.3s ease;
+        }
+      }
+    }
+    &.hover {
+      .marker-icon {
+        height: 60px !important;
+        width: 60px !important;
+        i {
+          font-size: 2em !important;
+        }
+        box-shadow: 0 0 16px 16px rgba($orange, 0.4);
       }
     }
   }

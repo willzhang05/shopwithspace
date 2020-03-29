@@ -3,16 +3,18 @@ from flask import Flask
 from flask import request
 import tomtom as tt
 import places
+from pprint import pprint
 
 app = Flask(__name__)
 
 
 @app.route('/nearby')
 def get_nearby():
-    lat = request.args.get('latitude')
-    lng = request.args.get('longitude')
-    rad = request.args.get('radius')
+    lat = float(request.args.get('latitude'))
+    lng = float(request.args.get('longitude'))
+    rad = float(request.args.get('radius'))
     nearby = places.get_nearby_places(lat, lng, rad)
+    pprint(nearby)
     if "error" in nearby:
         return {'stores': []}
     else:
@@ -27,20 +29,20 @@ def get_nearby():
 #     return {'stores': places.get_nearby_places(lat, lng, rad)}
 
 
-@app.route('/region_speed')
-def get_region_speed():
-    lat = request.args.get('latitude')
-    lng = request.args.get('longitude')
-    # 1.5 mile radius
-    return {'region_speed': tt.get_region_speed(lat, lng, 1.5)}
+# @app.route('/region_speed')
+# def get_region_speed():
+#     lat = request.args.get('latitude')
+#     lng = request.args.get('longitude')
+#     # 0.75 mile radius
+#     return {'region_speed': tt.get_region_speed(lat, lng, 0.75)}
 
 
-@app.route('/flow_segment_data')
-def get_flow_segment_data():
-    lat = request.args.get('latitude')
-    lng = request.args.get('longitude')
-    # data as a dictionary includes frc (road classification), currentSpeed, freeFlowSpeed, confidence, and roadClosure
-    return {'flow_segment_data': tt.get_flow_segment_data(lat, lng)}
+# @app.route('/flow_segment_data')
+# def get_flow_segment_data():
+#     lat = request.args.get('latitude')
+#     lng = request.args.get('longitude')
+#     # data as a dictionary includes frc (road classification), currentSpeed, freeFlowSpeed, confidence, and roadClosure
+#     return {'flow_segment_data': tt.get_flow_segment_data(lat, lng)}
 
 
 # @app.route('/currentSpeed')

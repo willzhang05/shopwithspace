@@ -22,7 +22,7 @@ class Map extends React.Component {
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q' }}
           defaultCenter={center}
-          defaultZoom={10}
+          defaultZoom={15}
           yesIWantToUseGoogleMapApiInternals
         >
           {this.props.stores.map((obj, index) => (
