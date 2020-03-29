@@ -81,7 +81,7 @@
         .marker-info {
           width: 150px;
           opacity: 1;
-          transition: opacity 0.3s ease-in, width 0.3s ease;
+          transition: opacity 0.3s ease, width 0.3s ease;
         }
       }
     }
@@ -93,7 +93,46 @@
           font-size: 2em !important;
         }
         box-shadow: 0 0 16px 16px rgba($orange, 0.4);
+        transition: all 0.2s ease;
       }
+    }
+
+    @mixin safety-color($safe) {
+      .marker-icon {
+        background: $safe;
+      }
+
+      .marker-triangle {
+        border-top: 16px solid $safe;
+      }
+
+      &.hover {
+        .marker-icon {
+          box-shadow: 0 0 16px 16px rgba($safe, 0.4);
+        }
+      }
+
+      .marker-icon-container:hover {
+        .marker-icon {
+          box-shadow: 0 0 16px rgba($safe, 0.4);
+        }
+      }
+    }
+
+    &.r5 {
+      @include safety-color($green);
+    }
+    &.r4 {
+      @include safety-color($primary);
+    }
+    &.r3 {
+      @include safety-color($yellow);
+    }
+    &.r2 {
+      @include safety-color($orange);
+    }
+    &.r1 {
+      @include safety-color($red);
     }
   }
 }

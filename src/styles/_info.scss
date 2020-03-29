@@ -1,0 +1,72 @@
+@import 'colors';
+
+.store-modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba($black, 0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .store-modal {
+    height: 100vh;
+    width: 100vw;
+    opacity: 1;
+    animation-name: expandmodal;
+    animation-duration: 2s;
+    max-height: 500px;
+    max-width: 1000px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 32px;
+    background: white;
+    box-shadow: 0 0 16px rgba(white, 0.3);
+    h2 {
+      font-size: 1.5em;
+    }
+
+    .modal-content {
+      opacity: 1;
+      animation-name: showmodal;
+      animation-duration: 2s;
+    }
+  }
+  @keyframes expandmodal {
+    0% {
+      opacity: 0;
+      height: 0;
+      width: 0;
+      .modal-content {
+        opacity: 0;
+      }
+    }
+    50% {
+      height: unquote('min(100vh, 500px)');
+      width: unquote('min(100vw, 1000px)');
+      opacity: 1;
+      .modal-content {
+        opacity: 0;
+      }
+    }
+    100% {
+      .modal-content {
+        opacity: 1;
+      }
+    }
+  }
+  @keyframes showmodal {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

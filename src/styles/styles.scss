@@ -2,6 +2,7 @@
 @import 'loader';
 @import 'markers';
 @import 'results';
+@import 'info';
 
 body,
 html {
@@ -23,8 +24,8 @@ p {
 }
 
 .map-view-container {
-  display: grid;
-  grid-template-columns: 500px auto;
+  display: flex;
+  position: relative;
 }
 
 #map {
@@ -33,5 +34,6 @@ p {
 }
 
 #results {
+  width: 500px;
   padding: 50px;
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { hoverMarker } from './MarkerActions';
+import { hoverMarker, viewDetailedInfo } from './MarkerActions';
 
 class Marker extends React.Component {
   displayInfo() {
-    alert('HI');
+    this.props.viewDetailedInfo(this.props.index);
   }
   hoverMarker(key) {
     this.props.hoverMarker(key);
@@ -15,10 +15,17 @@ class Marker extends React.Component {
     let hover = 'marker';
 
     if (this.props.result === this.props.obj.id) {
-      hover = 'market hover';
+      hover = 'marker hover';
       over = 'marker-container over';
     } else if (this.props.marker === this.props.obj.id) {
       over = 'marker-container over';
+    }
+
+    hover += ' r' + Math.round(this.props.obj.safety);
+
+    let icon = <i className='fad fa-store'></i>;
+    if ('icon' in this.props.obj.details) {
+      icon = <img src={this.props.obj.details.icon} alt='Icon' />;
     }
     return (
       <div className={over}>
@@ -30,7 +37,7 @@ class Marker extends React.Component {
         >
           <div className='marker-icon-container'>
             <div className='marker-icon'>
-              <i className='fad fa-store'></i>
+              {icon}
 
               <div className='marker-info'>
                 <h4>{this.props.obj.name}</h4>
@@ -53,7 +60,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  hoverMarker
+  hoverMarker,
+  viewDetailedInfo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Marker);

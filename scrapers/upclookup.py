@@ -1,9 +1,8 @@
 import bs4
 import urllib3
+from urllib.parse import urlencode
 import requests
 from bs4 import BeautifulSoup
-from urllib.request import urlretrieve
-from urllib.parse import urlencode
 
 
 def get_upc_url(item_string):
@@ -24,11 +23,12 @@ def get_upc(item):
     soup = BeautifulSoup(response.data, 'html.parser')
     textbox = soup.findAll('div', attrs={'class': 'rImage'})
 
-    for i in range(min(len(textbox), 15)):
-        nums = i.index("/upc/")+5
-        upcdict[i[i.index("<p>")+3:i.index("</p>")]] = i[nums:nums+12]
-
-    print(textbox[0])
-    # <div class="rImage"><a href="/upc/696226194496" title="UPC 696226194496 product info">696226194496</a><p>Charmin Toilet Paper 2 Ply, 142 Sheets Charmin Ultra Soft Bathroom Tissue 4</p></div>
+    for i in textbox:
+        i = str(i)
+        if "UPC" in i:
+            upcdict[i[i.index("/upc/")+5:i.index("\" title")].zfill(12)
+                    ] = i[i.index("<p>")+3:i.index("</p>")]
+        if len(upcdict) > 15:
+            break
 
     return upcdict

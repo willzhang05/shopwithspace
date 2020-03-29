@@ -5,25 +5,65 @@
     border-radius: 8px;
     border: 1px solid rgba($secondary, 0.3);
     display: flex;
+    align-items: center;
 
     .image {
-      width: 70px;
+      width: 100px;
+      height: 80px;
       background: $secondary;
+      object-fit: cover;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
     }
 
     .text {
       padding: 8px;
+      max-width: calc(100% - 200px);
 
       h4 {
         margin-bottom: 8px;
       }
-      .coords {
+      .address {
         font-size: 0.8em;
         color: rgba($secondary, 0.7);
       }
     }
+    .safety {
+      width: 70px;
+      height: 80px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
 
-    .safety-rating {
+      &.r5 {
+        background: $green;
+      }
+      &.r4 {
+        background: $primary;
+      }
+      &.r3 {
+        background: $yellow;
+      }
+      &.r2 {
+        background: $orange;
+      }
+      &.r1 {
+        background: $red;
+      }
+
+      .safety-number {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+      }
+      .safety-text {
+        text-transform: uppercase;
+        font-size: 0.8em;
+      }
     }
 
     transition: all 0.3s ease;
