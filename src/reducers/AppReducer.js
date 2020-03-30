@@ -1,7 +1,7 @@
 const initialState = {
   stores: [],
   location: {},
-  radius: 1500,
+  radius: 8000,
   error: null,
   // for viewing
   current: null,
