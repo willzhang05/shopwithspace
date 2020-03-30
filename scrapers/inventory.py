@@ -62,11 +62,12 @@ def get_walmarts(item_name, zipcode):
     return stores
 
 
-for store in get_walmarts("toilet paper", 22032):
-    print(store)
+# for store in get_walmarts("toilet paper", 22032):
+#     print(store)
 
 ''' [
     {
+        "item": "Charmin ...."
         "available": true,
         "storename": "walmart #1284",
         "zipcode" : "20182",

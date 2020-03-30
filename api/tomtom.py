@@ -42,7 +42,7 @@ def get_speeds(latitude, longitude):
         str(longitude) + "&unit=MPH&key=" + TOMTOM_API_KEY
     r = requests.get(url)
     data = r.json()
-    print(data)
+    # print(data)
     if "error" in data:
         return (4., 8.)  # default ratio to 3
     return (float(data["flowSegmentData"]["currentSpeed"]), float(data["flowSegmentData"]["freeFlowSpeed"]))

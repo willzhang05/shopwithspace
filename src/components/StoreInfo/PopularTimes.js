@@ -55,7 +55,7 @@ class PopularTimes extends React.Component {
           <div className='modal-popular-times'>{poptimes}</div>
           <div className='popular-rating'>
             <span className='popularity'>
-              {Math.max(100 - list[currentDay].data[hour], 1)}%
+              {Math.max(100 - list[day].data[hour], 1)}% safe
             </span>
             <span className='day'>{time.format('dddd')}</span>
             <span className='time'>{time.format('h A')}</span>

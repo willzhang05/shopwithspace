@@ -1,4 +1,4 @@
-from skulookup import get_sku
+from .skulookup import get_sku
 import urllib3
 import requests
 from bs4 import BeautifulSoup
@@ -62,8 +62,8 @@ def get_walmarts(item_name, zipcode):
     return stores
 
 
-for store in get_walmarts("toilet paper", 22032):
-    print(store)
+# for store in get_walmarts("toilet paper", 22032):
+#     print(store)
 
 ''' [
     {

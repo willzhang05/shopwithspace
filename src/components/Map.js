@@ -16,13 +16,14 @@ class Map extends React.Component {
       lat: this.props.location.latitude,
       lng: this.props.location.longitude
     };
-
+    const zoom = this.props.searchType === 'stores' ? 15 : 10;
     return (
       <div id='map'>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q' }}
           defaultCenter={center}
           defaultZoom={15}
+          zoom={zoom}
           yesIWantToUseGoogleMapApiInternals
         >
           {this.props.stores.map((obj, index) => (
@@ -47,7 +48,8 @@ class Map extends React.Component {
 const mapStateToProps = state => {
   return {
     location: state.location,
-    stores: state.stores
+    stores: state.stores,
+    searchType: state.searchType
   };
 };
 

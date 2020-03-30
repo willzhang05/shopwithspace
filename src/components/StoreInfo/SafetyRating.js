@@ -26,15 +26,15 @@ class SafetyRating extends React.Component {
 
     let popularity =
       'current_popularity' in this.props.obj.popular
-        ? this.props.obj.popular.current_popularity
+        ? this.props.obj.popular.current_popularity.toFixed(1)
         : 'Unknown';
     let time_wait =
       'time_wait' in this.props.obj.popular
-        ? this.props.obj.popular.time_wait
+        ? this.props.obj.popular.time_wait.toFixed(1)
         : 'Unknown';
     let time_spent =
       'time_spent' in this.props.obj.popular
-        ? this.props.obj.popular.time_spent
+        ? this.props.obj.popular.time_spent.toFixed(1)
         : 'Unknown';
     return (
       <div className='safety-rating'>
@@ -56,7 +56,8 @@ class SafetyRating extends React.Component {
             </p>
           </div>
           <div className='text'>
-            Higher traffic flow indicates less vehicles on the road.
+            Higher traffic flow indicates less vehicles on the road near the
+            store.
           </div>
 
           <div className='row'>
@@ -69,7 +70,7 @@ class SafetyRating extends React.Component {
 
           <div className='row'>
             <h4>Average Wait Time</h4>
-            <p>{time_wait}</p>
+            <p>{time_wait} min</p>
           </div>
           <div className='text'>
             Lower wait time indicates less contact with people in the store.
@@ -77,7 +78,7 @@ class SafetyRating extends React.Component {
 
           <div className='row'>
             <h4>Average Time Spent</h4>
-            <p>{time_spent}</p>
+            <p>{time_spent} min</p>
           </div>
           <div className='text'>
             Lower time spent indicates less people in the store.

@@ -16,8 +16,16 @@ export async function locationApi() {
 }
 
 export async function storesApi(payload) {
-  console.log(payload);
+  // console.log(payload);
   const stores = await axios.get('/nearby', {
+    params: payload
+  });
+  return stores;
+}
+
+export async function itemApi(payload) {
+  console.log(payload);
+  const stores = await axios.get('/search', {
     params: payload
   });
   return stores;

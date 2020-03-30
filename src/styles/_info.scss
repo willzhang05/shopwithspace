@@ -112,7 +112,7 @@
           }
 
           &.r5 {
-            @include safety-score-circle($primary);
+            @include safety-score-circle($green);
           }
           &.r4 {
             @include safety-score-circle($primary);

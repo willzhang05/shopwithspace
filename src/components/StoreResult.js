@@ -33,7 +33,10 @@ class StoreResult extends React.Component {
       default:
         break;
     }
-
+    const image =
+      this.props.obj.photo != null ? (
+        <img src={this.props.obj.photo} alt='Storefront'></img>
+      ) : null;
     return (
       <div
         className={hover}
@@ -41,9 +44,7 @@ class StoreResult extends React.Component {
         onMouseEnter={() => this.hoverResult(this.props.obj.id)}
         onMouseLeave={() => this.hoverResult(null)}
       >
-        <div className='image'>
-          {/* <img src={this.props.obj.photo} alt='Storefront'></img> */}
-        </div>
+        <div className='image'>{image}</div>
         <div className='text'>
           <h4>{this.props.obj.name}</h4>
 

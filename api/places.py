@@ -7,9 +7,6 @@ GMAPS_API_KEY = "AIzaSyCl3oN8un11v0d7DGCJ9QQYEh7nf93Vu0Q"
 GMAPS_CLIENT = googlemaps.Client(key=GMAPS_API_KEY)
 
 
-def get_safety(latitude, longitude):
-
-
 def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarket']):
     try:
         places = GMAPS_CLIENT.places_nearby(
@@ -31,11 +28,11 @@ def get_nearby_places(latitude, longitude, radius, types=['grocery_or_supermarke
 
             data['popular'] = get_place_popularity_info(p['place_id'])
 
-            if "current_popularity" in data['popular']:
-                data['safety'] = sum(
-                    current_speed/free_flow_speed*4+1, (100-data['popular'])/100*4+1)/2
-            else:
-                data['safety'] = current_speed/free_flow_speed*4+1
+            # if "current_popularity" in data['popular']:
+            #     data['safety'] = sum(
+            #         current_speed/free_flow_speed*4+1, (100-data['popular'])/100*4+1)/2
+            # else:
+            #     data['safety'] = current_speed/free_flow_speed*4+1
 
             data['details'] = get_place_details(p['place_id'])
             if 'photo_ref' in data['details']:
@@ -91,8 +88,26 @@ def get_place_popularity_info(place_id):
             info['time_spent'] = data['time_spent'][1]
         if "current_popularity" in data:
             info['current_popularity'] = data['current_popularity']  # 0 - 100\
+        else:
+            info['current_popularity'] = -1
         if 'populartimes' in data:
             info['populartimes'] = data['populartimes']
         return info
     except populartimes.crawler.PopulartimesException:
+        return {'error': 'INVALID_REQUEST'}
+
+
+def get_place_id(address):
+    try:
+        results = GMAPS_CLIENT.find_place(
+            address, 'textquery', ['geometry', 'place_id'])
+        if 'candidates' in results and len(results['candidates']) > 0:
+            current = results['candidates'][0]
+            return {
+                'lat': current['geometry']['location']['lat'],
+                'lng': current['geometry']['location']['lng'],
+                'place_id': current['place_id']
+            }
+        return {'error': 'INVALID_REQUEST'}
+    except Exception:
         return {'error': 'INVALID_REQUEST'}

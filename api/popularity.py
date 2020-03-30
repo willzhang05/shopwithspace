@@ -80,7 +80,7 @@ def get_place_popularity_info(place_id):
 
 #result = getAvailableLocations(location[0], location[1], 2000)
 #result = get_place_popularity_info("aChIJmw3Qq5ZFtokR110Yscnc6hA")
-result = get_place_details("ChIJmw3Qq5ZFtokR110Yscnc6hA")
-pprint(result)
-photo = get_place_photo(result["photo_ref"])
-print(encoded)
+# result = get_place_details("ChIJmw3Qq5ZFtokR110Yscnc6hA")
+# pprint(result)
+# photo = get_place_photo(result["photo_ref"])
+# print(encoded)

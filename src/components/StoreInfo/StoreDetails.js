@@ -20,7 +20,12 @@ class StoreDetails extends React.Component {
           <div className='modal-contact'>
             <div className='row'>
               <h4>Address</h4>
-              <p>{this.props.obj.details.formatted_address}</p>
+              <p>
+                {this.props.obj.details.formatted_address.substring(
+                  0,
+                  this.props.obj.details.formatted_address.indexOf(',')
+                )}
+              </p>
             </div>
             <div className='row'>
               <h4>Phone</h4>

@@ -1,15 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { storesApi } from './API';
+import { itemApi } from './API';
 
-export function* onStores() {
-  yield takeEvery('SEARCH_API_STORES', fetchStores);
+export function* onSearch() {
+  yield takeEvery('SEARCH_API_ITEM', fetchSearch);
 }
 
-export function* fetchStores(action) {
+export function* fetchSearch(action) {
   try {
-    yield put({ type: 'SEARCH_STORES_PENDING', payload: {} });
+    yield put({ type: 'SEARCH_ITEM_PENDING', payload: {} });
 
-    let stores = yield call(storesApi, action.payload);
+    let stores = yield call(itemApi, action.payload);
     stores = stores.data.stores.map((store, index) => {
       if ('populartimes' in store.popular) {
         if (store.popular.current_popularity < 0) {
@@ -36,10 +36,10 @@ export function* fetchStores(action) {
     });
 
     yield put({
-      type: 'SEARCH_STORES_SUCCESS',
+      type: 'SEARCH_ITEM_SUCCESS',
       payload: { stores: stores }
     });
   } catch (e) {
-    yield put({ type: 'SEARCH_SET_ERROR', payload: { error: e.message } });
+    yield put({ type: 'SEARCH_ITEM_ERROR', payload: { error: e.message } });
   }
 }
