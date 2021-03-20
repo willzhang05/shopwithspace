@@ -9,7 +9,7 @@ geopy==1.21.0
 googlemaps==4.2.0
 idna==2.9
 itsdangerous==1.1.0
-Jinja2==2.11.1
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 -e git+https://github.com/m-wrzr/populartimes@e9e9ac48ea86449eeea143af24e590e71b0ecce9#egg=populartimes
 python-dotenv==0.12.0
